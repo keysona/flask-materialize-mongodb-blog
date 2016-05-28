@@ -1,0 +1,31 @@
+{% macro render_post_card(post) %}
+  <div class="card hoverable post-card">
+    <div class="card-title center post-header" >
+      <h5><a class="black-text" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}"> {{ post.title }}</a></h5>
+      <div class="post-infos">
+        <span class="post-info"><i class="fa fa-calendar" aria-hidden="true"></i> {{ post.created_date | format_datetime }}</span>
+      <!-- <span class="article-info"><i class="fa fa-user" aria-hidden="true"></i> keysona</span> -->
+        <a class = "category"><span class="post-info"><i class="fa fa-archive" aria-hidden="true"></i> Tech</span></a>
+        <span class="post-info"><i class="fa fa-comments" aria-hidden="true"></i> 9</span>
+        <br />
+        {% for tag in post.tags %}
+          <a href="#" class="waves-effect waves-light btn" style="font-size:15px;"><i class="fa fa-tag" aria-hidden="true"></i> {{ tag.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="post-content">
+      <article class="markdown-body" style="padding:1% 1%;">
+          {% autoescape false %}
+              {{ post.article_html | my_truncate }}
+          {% endautoescape %}
+      </article>
+      <br>
+      <div class="center">
+        <a class="btn waves-effect waves-light" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}">Read More
+          <i class="material-icons right">send</i>
+        </a>
+      </div>
+      <br>
+    </div>
+  </div>
+{% endmacro %}

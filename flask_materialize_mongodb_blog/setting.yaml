@@ -1,0 +1,16 @@
+---
+config:
+    MONGODB_SETTINGS:
+        DB: keysona-blog
+        host: 127.0.0.1
+        port: 27017
+    DEBUG: true
+    SECRET_KEY: development key
+    USERNAME: keysona
+    PASSWORD: keysona
+    contact:
+      gmail: mailto:keypython@gmail
+      twitter: https://twitter.com/RumenRider
+      github: https://github.com/keysona
+      google-plus: https://plus.google.com/u/0/112778936273295439012
+...

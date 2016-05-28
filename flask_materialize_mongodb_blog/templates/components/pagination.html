@@ -1,0 +1,28 @@
+{% macro render_pagination(pagination, endpoint) %}
+  <ul class="pagination center">
+      {#  left arrow  #}
+      {% if pagination.has_prev %}
+          <li class="waves-effect"><a href="{{ url_for(endpoint, page=pagination.prev_num) }}"><i class="material-icons">chevron_left</i></a></li>
+      {% else %}
+          <li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>
+      {% endif %}
+
+      {# page num #}
+      {%- for page in pagination.iter_pages() %}
+          {% if page %}
+              {% if page != pagination.page %}
+                  <li class="waves-effect"><a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a></li>
+              {% else %}
+                  <li class="active"><a href="#">{{ page }}</a></li>
+              {% endif %}
+          {% endif %}
+      {%- endfor %}
+
+      {# right arrow #}
+      {% if pagination.has_next %}
+          <li class="waves-effect"><a href="{{ url_for(endpoint, page=pagination.next_num) }}"><i class="material-icons">chevron_right</i></a></li>
+      {% else %}
+          <li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li>
+      {% endif %}
+  </ul>
+{% endmacro %}

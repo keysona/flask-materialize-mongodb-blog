@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row section">
+      <div class="col s12 m12 l12 about-me" style="">
+          <nav>
+              <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="#!" class="breadcrumb">First</a>
+                    <a href="#!" class="breadcrumb">Second</a>
+                    <a href="#!" class="breadcrumb">Third</a>
+                </div>
+              </div>
+            </nav>
+          <div class="card-panel hoverable" style="">
+            <article class="markdown-body" style="padding:1% 1%;">
+                {% autoescape false %}
+                    {{ post.article_html }}
+                {% endautoescape %}
+            </article>
+            <div class="comment">
+            </div>
+          </div>
+      </div>
+      <div class="col s12 l3" style="style:400px">
+        {% include 'components/self.html' %}
+        <div class="hide-on-small-only toc-wrapperd card hoverable">
+            <div class="card-content">
+                <span class="card-title"><i class="material-icons">format_list_bulleted</i>目录</span>
+                <ul class="section table-of-contents"></ul>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% include 'components/rocket.html' %}
+{% endblock %}
