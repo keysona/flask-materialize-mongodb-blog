@@ -16,17 +16,15 @@ def create_app(setting_path=None):
 
 
 def register_blueprints(app):
-    from .views import blog
+    from .blog import blog
     app.register_blueprint(blog)
 
 
 def register_admin(app):
-    from .models import Post, Tag, Category
-    from .admin import create_admin, PostView, TagView, CategoryView
-    admin = create_admin(app, name='blog', template_mode='bootstrap3')
-    admin.add_view(PostView(Post))
-    admin.add_view(TagView(Tag))
-    admin.add_view(CategoryView(Category))
+    from .admin import create_admin, init_login
+    admin = create_admin(name='blog', template_mode='bootstrap3')
+    admin.init_app(app)
+    init_login(app)
 
 
 def register_filters(app):

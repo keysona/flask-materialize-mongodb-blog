@@ -1,26 +1,19 @@
 import datetime
 import logging
-
-from flask import flash
-from flask.ext.admin.babel import gettext
-from flask.ext.admin.contrib.mongoengine.helpers import format_error
-from flask_admin import Admin
-from flask_admin.contrib.mongoengine import ModelView
 import flask_login as login
-from wtforms import TextAreaField, form, fields, validators
+
+from flask import flash, request, redirect, url_for, render_template
+from flask.ext.admin.babel import gettext
+from flask.ext.admin.base import AdminIndexView, expose
+from flask.ext.admin.contrib.mongoengine import ModelView
+from flask.ext.admin.contrib.mongoengine.helpers import format_error
+from wtforms import TextAreaField
 from wtforms.widgets import TextArea
 
-from . import app
-from .models import AdminUser
-from .tools import markdown
+from .tools import markdown, format_datetime
+from .forms import LoginForm
 
 log = logging.getLogger("flask-admin.mongo")
-
-
-def format_datetime(view, context, model, name):
-    datetime = model[name]
-    return "%s年%s月%s日 %s:%s" % (datetime.year, datetime.month, datetime.day,
-                                datetime.hour, datetime.second)
 
 
 class CKTextAreaWidget(TextArea):
@@ -51,18 +44,17 @@ class PostView(ModelView):
     edit_template = 'ckedit.html'
 
     def _on_model_change(self, form, model, is_created):
-
         if is_created:
             # convert markdown text to html
             model['article_html'] = markdown(model['article_text'],
                                              extras=['pyshell', 'fenced-code-blocks'])
             # first save document to get reference
             model.save()
-
         # add this post to all tags.post list.
         for tag in model.tags:
             if model not in tag.posts:
                 tag.posts.append(model)
+                tag.count = len(tag.posts)
                 tag.save()
 
     def on_model_delete(self, model):
@@ -71,6 +63,7 @@ class PostView(ModelView):
         for tag in tags:
             if model in tag.posts:
                 tag.posts.remove(model)
+                tag.count = len(tag.posts)
                 tag.save()
 
     def update_model(self, form, model):
@@ -95,51 +88,56 @@ class PostView(ModelView):
 
         return True
 
+    def is_accessible(self):
+        return login.current_user.is_authenticated
+
 
 class TagView(ModelView):
+
     def _on_model_change(self, form, model, is_created):
         if is_created:
             model.save()
         category = model.category
         if model not in category.tags:
             category.tags.append(model)
+            category.count = len(category.tags)
             category.save()
 
     def on_model_delete(self, model):
         category = model.category
         if model in category.tags:
             category.tags.remove(model)
+            category.count = len(category.tags)
             category.save()
+
+    def is_accessible(self):
+        return login.current_user.is_authenticated
 
 
 class CategoryView(ModelView):
-    pass
+
+    def is_accessible(self):
+        return login.current_user.is_authenticated
 
 
-class LoginForm(form.Form):
+class AdminHomeView(AdminIndexView):
 
-    login = fields.TextField(validators=[validators.required()])
-    password = fields.PasswordField(validators=[validators.required()])
+    @expose('/', methods=('GET', 'POST'))
+    def index(self):
+        if not login.current_user.is_authenticated:
+            return redirect(url_for('.login'))
+        return super().index()
 
-    def validate_login(self, field):
+    @expose('/login', methods=('GET', 'POST'))
+    def login(self):
+        form = LoginForm(request.form)
+        if request.method == 'POST' and form.validate():
+            user = form.get_user()
+            login.login_user(user)
+            return redirect(url_for('.index'))
+        return render_template('form.html', form=form)
 
-        if self.login.data not in \
-                [app.config['username'], app.config['email']]:
-            raise validators.ValidationError('Invalid username or password!')
-
-        if self.password.data != app.config['password']:
-            raise validators.ValidationError('Invalid password!')
-
-
-def init_login(app):
-    login_manager = login.LoginManager()
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return AdminUser.Objects.get(id=user-id).first()
-
-
-def create_admin(app, *args, **kwargs):
-
-    return Admin(app, *args, **kwargs)
+    @expose('/logout', methods=('GET', 'POST'))
+    def logout(self):
+        login.logout_user()
+        return redirect(url_for('.index'))

@@ -1,0 +1,12 @@
+<div class="hoverable">
+    <div class="card">
+      <div class="content" style="padding:10px;">
+        <span class="card-title"><i class="fa fa-tags" aria-hidden="true"></i> Tags</span>
+      </div>
+      <div class="card-action">
+        {% for tag in tags %}
+          <a class="waves-effect waves-light" style="font-size:15px;"><i class="fa fa-tag" aria-hidden="true"></i> {{ tag.name }} ({{ tag.count }})</a>
+        {% endfor %}
+      </div>
+    </div>
+</div>

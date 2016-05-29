@@ -19,13 +19,22 @@
 </head>
 <body>
     {# navbar #}
-    {% include 'components/navbar.html' %}
-
-    {% block content %}
+    {% block navbar %}
+      {% include 'components/navbar.html' %}
     {% endblock %}
+    {% block container %}
+      {% block content %}
+      {% endblock %}
 
+      {% block aside %}
+      {% endblock %}
+    {% endblock %}
     {# footer & script #}
-    {% include 'components/footer.html' %}
-    {% include 'components/script.html' %}
+    {% block footer %}
+      {% include 'components/footer.html' %}
+    {% endblock %}
+    {% block script %}
+      {% include 'components/script.html' %}
+    {% endblock %}
 </body>
 </html>

@@ -1,6 +1,6 @@
 import datetime
 from flask import url_for
-from . import db
+from flask_materialize_mongodb_blog import db
 
 
 class Category(db.Document):
@@ -12,8 +12,11 @@ class Category(db.Document):
 
     tags = db.ListField(db.ReferenceField('Tag'))
 
+    count = db.IntField(verbose_name='标签数',
+                        default=0)
+
     def __unicode__(self):
-        return self.name
+        return '<%s (%s)>' % (self.name, self.count)
 
 
 class Tag(db.Document):
@@ -25,9 +28,11 @@ class Tag(db.Document):
 
     category = db.ReferenceField(Category, verbose_name='目录')
     posts = db.ListField(db.ReferenceField('Post'))
+    count = db.IntField(verbose_name='标签数',
+                        default=0)
 
     def __unicode__(self):
-        return self.name
+        return '<%s (%s)>' % (self.name, self.count)
 
 
 class Post(db.Document):
@@ -68,32 +73,3 @@ class Post(db.Document):
                     '$article_html'],
         'ordering': ['-created_date']
         }
-
-
-class User(db.Document):
-
-    email = db.EmailField(required=True, unique=True)
-    username = db.StringField(max_length='30', required=True)
-    password = db.StringField(required=True)
-
-    meta = {
-            'allow_inheritance': True
-        }
-
-    def __unicode__(self):
-        return '<%s> %s' % (self.email, self.username)
-
-
-class AdminUser(User):
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return str(self.id)

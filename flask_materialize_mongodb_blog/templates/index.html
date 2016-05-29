@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
-{% block content %}
-    <div class="container">
-      <div class="row section">
+
+{% block container %}
+  <div class="container">
+    <div class="row section">
+
+      {% block content %}
         <div class="col s12 l9" style="">
           {% for post in posts %}
             {% from 'components/post-card.html' import render_post_card %}
             {{ render_post_card(post) }}
           {% endfor %}
-        {# pagination #}
-        {% from 'components/pagination.html' import render_pagination %}
-          {{ render_pagination(pagination, 'blog.index') }}
-      </div>
-      {% include 'components/info.html' %}
+          {# pagination #}
+          {% from 'components/pagination.html' import render_pagination %}
+            {{ render_pagination(pagination, 'blog.index') }}
+        </div>
+      {% endblock %}
+
+      {% block aside %}
+        <aside class="col s12 l3">
+          {% include 'components/info.html' %}
+          {% include 'components/tag-list.html' %}
+        </aside>
+      {% endblock %}
+
     </div>
   </div>
 {% endblock %}

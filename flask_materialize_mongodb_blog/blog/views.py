@@ -1,21 +1,26 @@
 from flask import Blueprint, render_template
 from .models import *
-from . import app
+from flask_materialize_mongodb_blog import app
+
+blog = Blueprint('blog', __name__, template_folder='templates')
+
 
 # error handler
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
-blog = Blueprint('blog', __name__, template_folder='templates')
-
 
 @blog.route('/', defaults={'page': 1})
 @blog.route('/index/page/<int:page>')
 def index(page):
-    posts = []
     pagination = Post.objects.paginate(page=page, per_page=3)
-    return render_template('index.html', **{'posts': pagination.items, 'pagination': pagination})
+    posts = pagination.items
+    tags = Tag.objects.all()
+    return render_template('index.html',
+                           **{'posts': posts,
+                              'pagination': pagination,
+                              'tags': tags})
 
 
 @blog.route('/post/<string:slug>')
