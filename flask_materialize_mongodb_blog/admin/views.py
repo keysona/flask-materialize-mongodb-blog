@@ -73,7 +73,8 @@ class PostView(ModelView):
             self._on_model_change(form, model, False)
             if article_text != model['article_text']:
                 model['modified_date'] = datetime.datetime.now()
-                model['article_html'] = markdown(model['article_text'], extras=['pyshell', 'fenced-code-blocks']) # cuddled-lists'
+                model['article_html'] = markdown(model['article_text'],
+                                                 extras=['pyshell', 'fenced-code-blocks', 'link-with-blank'])  # cuddled-lists'
             model.save()
         except Exception as ex:
             if not self.handle_view_exception(ex):

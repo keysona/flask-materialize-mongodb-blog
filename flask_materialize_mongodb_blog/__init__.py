@@ -8,7 +8,6 @@ def create_app(setting_path=None):
     if setting_path is None:
         import os
         setting_path = os.path.join(os.path.dirname(__file__), 'setting.yaml')
-        print(setting_path)
     with open(setting_path) as f:
         setting = yaml.safe_load(f.read())
         app.config.update(setting['config'])

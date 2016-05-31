@@ -6,13 +6,15 @@
 
       {% block content %}
         <div class="col s12 l9" style="">
+        {% with index = true %}
           {% for post in posts %}
             {% from 'components/post-card.html' import render_post_card %}
-            {{ render_post_card(post) }}
+            {{ render_post_card(post, truncate) }}
           {% endfor %}
-          {# pagination #}
-          {% from 'components/pagination.html' import render_pagination %}
-            {{ render_pagination(pagination, 'blog.index') }}
+        {% endwith %}
+        {# pagination #}
+        {% from 'components/pagination.html' import render_pagination %}
+          {{ render_pagination(pagination, 'blog.index') }}
         </div>
       {% endblock %}
 

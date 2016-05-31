@@ -16,23 +16,30 @@
     <!-- Font-Awesome -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='font-awesome-4.6.1/css/font-awesome.min.css') }}"/>
     {% endblock %}
+
+
 </head>
 <body>
     {# navbar #}
     {% block navbar %}
       {% include 'components/navbar.html' %}
     {% endblock %}
+
     {% block container %}
+
       {% block content %}
       {% endblock %}
 
       {% block aside %}
       {% endblock %}
+
     {% endblock %}
+
     {# footer & script #}
     {% block footer %}
       {% include 'components/footer.html' %}
     {% endblock %}
+
     {% block script %}
       {% include 'components/script.html' %}
     {% endblock %}

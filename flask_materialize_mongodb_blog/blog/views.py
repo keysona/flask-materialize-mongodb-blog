@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
+from urllib.parse import urljoin
+from werkzeug.contrib.atom import AtomFeed
 from .models import *
 from flask_materialize_mongodb_blog import app
+
 
 blog = Blueprint('blog', __name__, template_folder='templates')
 
@@ -10,6 +13,29 @@ blog = Blueprint('blog', __name__, template_folder='templates')
 def page_not_found(e):
     return render_template('404.html'), 404
 
+
+def make_external(slug):
+    return urljoin(request.url_root, url_for('blog.get_post_detail',
+                                             slug=slug))
+
+
+@blog.route('/recent.atom')
+def recent_feed():
+    print(request.url, request.url_root)
+    feed = AtomFeed('Recent Articles',
+                    feed_url=request.url, url=request.url_root)
+    for post in Post.objects[:10]:
+        feed.add(post.title, post.article_html,
+                 content_type='html', author=app.config['author'],
+                 url=make_external(post.slug),
+                 updated=post.modified_date,
+                 published=post.created_date)
+        return feed.get_response()
+
+
+@blog.route('/sitemap.xml', methods=['GET'])
+def sitemap():
+    pages
 
 @blog.route('/', defaults={'page': 1})
 @blog.route('/index/page/<int:page>')

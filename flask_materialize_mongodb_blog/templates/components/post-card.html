@@ -1,7 +1,11 @@
-{% macro render_post_card(post) %}
+{% macro render_post_card(post, index) %}
   <div class="card hoverable post-card">
     <div class="card-title center post-header" >
-      <h3 style="margin-top:0;margin-bottom:0;"><a class="black-text" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}"> {{ post.title }}</a></h3>
+      {% if index %}
+        <h3 style="margin-top:0;margin-bottom:0;"><a class="black-text" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}"> {{ post.title }}</a></h3>
+      {% else %}
+        <h3 style="margin-top:0;margin-bottom:0;"><a class="black-text" href="#"> {{ post.title }}</a></h3>
+      {% endif %}
       <div class="post-infos">
         <span class="post-info"><i class="fa fa-calendar" aria-hidden="true"></i> {{ post.created_date | format_datetime }}</span>
       <!-- <span class="article-info"><i class="fa fa-user" aria-hidden="true"></i> keysona</span> -->
@@ -16,15 +20,21 @@
     <div class="post-content">
       <article class="markdown-body" style="padding:1% 1%;">
           {% autoescape false %}
+            {% if index %}
               {{ post.article_html | my_truncate }}
+            {% else %}
+              {{ post.article_html }}
+            {% endif %}
           {% endautoescape %}
       </article>
       <br>
-      <div class="center">
-        <a class="btn waves-effect waves-light" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}">Read More
-          <i class="material-icons right">send</i>
-        </a>
-      </div>
+      {% if truncate %}
+        <div class="center">
+          <a class="btn waves-effect waves-light" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}">Read More
+            <i class="material-icons right">send</i>
+          </a>
+        </div>
+      {% endif %}
       <br>
     </div>
   </div>

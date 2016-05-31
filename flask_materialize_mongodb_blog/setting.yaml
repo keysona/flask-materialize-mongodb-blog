@@ -8,6 +8,7 @@ config:
     SECRET_KEY: development key
     USERNAME: keysona
     PASSWORD: keysona
+    author: keysona
     contact:
       gmail: mailto:keypython@gmail
       twitter: https://twitter.com/RumenRider
