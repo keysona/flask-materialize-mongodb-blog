@@ -37,6 +37,7 @@ def recent_feed():
 def sitemap():
     pages
 
+
 @blog.route('/', defaults={'page': 1})
 @blog.route('/index/page/<int:page>')
 def index(page):

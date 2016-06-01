@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Keysona{% endblock %}
+
 {% block container %}
   <div class="container">
     <div class="row section">
@@ -21,8 +21,7 @@
       {% block aside %}
         <aside class="col s12 l3">
           {% include 'components/info.html' %}
-          {% from 'components/tag-list.html' import tag_list %}
-            {{ tag_list(tags) }}
+          {% include 'components/tag-list.html' %}
         </aside>
       {% endblock %}
 

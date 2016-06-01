@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://www.arnebrachhold.de/wp-content/plugins/google-sitemap-generator/sitemap.xsl"?>
+
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for url in urlset %}
+  <url>
+		<loc>{{ url.location }}</loc>
+		<lastmod>{{ url.last_modified }}</lastmod>
+		<changefreq>{{ url.changefreq }}</changefreq>
+		<priority>{{ url.priority }}</priority>
+	</url>
+  {% endfor %}
+</urlset>
