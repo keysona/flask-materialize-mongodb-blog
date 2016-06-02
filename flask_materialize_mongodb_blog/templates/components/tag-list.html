@@ -6,7 +6,7 @@
       </div>
       <div class="card-action">
         {% for tag in tags %}
-          <a class="waves-effect waves-light" style="font-size:15px;"><i class="fa fa-tag" aria-hidden="true"></i> {{ tag.name }} ({{ tag.count }})</a>
+          <a class="waves-effect waves-light" style="font-size:15px;" href="{{ url_for('blog.get_tag_detail',name=tag.name) }}"><i class="fa fa-tag" aria-hidden="true"></i> {{ tag.name }} ({{ tag.count }})</a>
         {% endfor %}
       </div>
     </div>

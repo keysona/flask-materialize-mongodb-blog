@@ -56,7 +56,7 @@ def get_post_detail(slug):
     post.hit_count = post.hit_count + 1
     return render_template('post.html', post=post)
 
-
+# category
 @blog.route('/categorys')
 def show_category():
     categorys = Category.objects.all()
@@ -65,3 +65,13 @@ def show_category():
 @blog.route('/category/<string:category>')
 def get_category_detail():
     category = Category.objects.get_or_404()
+
+
+# tag
+@blog.route('/tag/<string:name>')
+def get_tag_detail(name):
+    tag = Tag.objects.get_or_404(name=name)
+    return render_template('tag.html',
+                           **{'tag': tag,
+                              'posts': tag.posts,
+                              'category': tag.category})

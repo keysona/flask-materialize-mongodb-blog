@@ -3,23 +3,14 @@
 {% block container %}
   <div class="container">
     <div class="row section">
-
       {% block content %}
         <div class="col s12 l9">
-        {% with index = true %}
-          {% for post in posts %}
-            {% from 'components/post-card.html' import render_post_card %}
-            {{ render_post_card(post, index) }}
-          {% endfor %}
-        {% endwith %}
-        {# pagination #}
-        {% from 'components/pagination.html' import render_pagination %}
-          {{ render_pagination(pagination, 'blog.index') }}
+
         </div>
       {% endblock %}
 
       {% block aside %}
-        <aside class="col s12 l3">
+        <aside class="col s12 offset-l9 l3">
           {% include 'components/info.html' %}
           {% include 'components/tag-list.html' %}
         </aside>
