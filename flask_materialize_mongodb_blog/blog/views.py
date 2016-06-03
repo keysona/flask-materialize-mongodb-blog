@@ -75,3 +75,8 @@ def get_tag_detail(name):
                            **{'tag': tag,
                               'posts': tag.posts,
                               'category': tag.category})
+
+
+@blog.route('/about')
+def about():
+    return render_template('about.html')
