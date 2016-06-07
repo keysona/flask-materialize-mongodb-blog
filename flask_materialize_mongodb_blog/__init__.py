@@ -4,7 +4,7 @@ from flask.ext.mongoengine import MongoEngine
 
 
 def create_app(setting_path=None):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='./static/static')
     if setting_path is None:
         import os
         setting_path = os.path.join(os.path.dirname(__file__), 'setting.yaml')
