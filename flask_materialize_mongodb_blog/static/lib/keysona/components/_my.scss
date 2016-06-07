@@ -1,0 +1,38 @@
+.post-card{
+  margin-bottom:30px;
+}
+.post-header{
+  padding: 30px 50px;
+  position: relative;
+  border-bottom: 1px solid rgba(160,160,160,0.2);
+  border-left: 5px solid #ee6e73;
+}
+.post-content{
+  padding: 20px;
+}
+.post-info{
+  color: black;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.form-card{
+  padding: 20px;
+  margin-top: 15%;
+  // margin-bottom: 10%;
+}
+
+// Class for when element is above threshold
+.pin-top {
+  position: relative;
+}
+
+// Class for when element is below threshold
+.pin-bottom {
+  position: relative;
+}
+
+// Class for when element is pinned
+.pinned {
+  position: fixed !important;
+}
