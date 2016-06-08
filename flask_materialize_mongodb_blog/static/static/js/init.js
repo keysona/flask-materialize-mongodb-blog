@@ -77,7 +77,7 @@ function markdownHeadersNav() {
     }
 }
 
-function scrollHandler(start_top){
+function scrollHandler(){
     var didScroll;
     var lastScrollTop = 0;
     var delta = 5;
@@ -97,8 +97,6 @@ function scrollHandler(start_top){
       $('html,body').animate({scrollTop:0},1000);
     });
 
-    var wrapper = $(".toc-wrapper");
-    var start_top = wrapper.offset().top;
 
     // Hide Header on on scroll down
     setInterval(function() {
