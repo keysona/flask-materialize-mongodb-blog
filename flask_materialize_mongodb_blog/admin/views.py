@@ -3,10 +3,10 @@ import logging
 import flask_login as login
 
 from flask import flash, request, redirect, url_for, render_template
-from flask.ext.admin.babel import gettext
-from flask.ext.admin.base import AdminIndexView, expose
-from flask.ext.admin.contrib.mongoengine import ModelView
-from flask.ext.admin.contrib.mongoengine.helpers import format_error
+from flask_admin.babel import gettext
+from flask_admin.base import AdminIndexView, expose
+from flask_admin.contrib.mongoengine import ModelView
+from flask_admin.contrib.mongoengine.helpers import format_error
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
 

@@ -8,6 +8,7 @@ class LoginForm(form.Form):
     password = fields.PasswordField(validators=[validators.required()])
 
     def validate_email(self, field):
+
         user = self.get_user()
         errors = self.errors
 

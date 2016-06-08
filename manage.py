@@ -1,4 +1,4 @@
-from flask.ext.script import Manager, Server, Shell, prompt_pass
+from flask_script import Manager, Server, Shell, prompt_pass
 from flask_materialize_mongodb_blog import app
 from flask_materialize_mongodb_blog.admin import AdminUser, User
 from flask_materialize_mongodb_blog.blog import Category, Post, Tag

@@ -56,6 +56,7 @@ def get_post_detail(slug):
     post.hit_count = post.hit_count + 1
     return render_template('post.html', post=post)
 
+
 # category
 @blog.route('/categorys')
 def show_category():

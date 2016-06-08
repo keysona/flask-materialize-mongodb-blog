@@ -1,6 +1,6 @@
 import yaml
 from flask import Flask
-from flask.ext.mongoengine import MongoEngine
+from flask_mongoengine import MongoEngine
 
 
 def create_app(setting_path=None):
