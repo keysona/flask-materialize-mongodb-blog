@@ -14,12 +14,14 @@
         {% endwith %}
         {# pagination #}
         {% from 'components/pagination.html' import render_pagination %}
-          {{ render_pagination(pagination, 'blog.index') }}
+          {% if posts %}
+            {{ render_pagination(pagination, 'blog.index') }}
+          {% endif %}
         </div>
       {% endblock %}
 
       {% block aside %}
-        <aside class="col s12 l3">
+        <aside class="col s12 offset-l9 l3">
           {% include 'components/info.html' %}
           {% from 'components/tag-list.html' import tag_list %}
             {{ tag_list(tags) }}
