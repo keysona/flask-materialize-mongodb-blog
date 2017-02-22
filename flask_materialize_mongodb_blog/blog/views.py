@@ -36,6 +36,7 @@ def recent_feed():
 @blog.route('/sitemap.xml', methods=['GET'])
 def sitemap():
     # pages
+    pass
 
 
 @blog.route('/', defaults={'page': 1})
