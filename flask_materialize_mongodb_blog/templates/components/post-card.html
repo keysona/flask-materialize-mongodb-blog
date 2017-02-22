@@ -10,7 +10,7 @@
         <span class="post-info"><i class="fa fa-calendar" aria-hidden="true"></i> {{ post.created_date | format_datetime }}</span>
       <!-- <span class="article-info"><i class="fa fa-user" aria-hidden="true"></i> keysona</span> -->
         <a class = "category"><span class="post-info"><i class="fa fa-archive" aria-hidden="true"></i> Tech</span></a>
-        <span class="post-info"><i class="fa fa-comments" aria-hidden="true"></i> 9</span>
+        <span class="post-info"><i class="fa fa-comments" aria-hidden="true"></i> 0</span>
         <br />
         {% for tag in post.tags %}
           <a href="{{ url_for('blog.get_tag_detail', name=tag.name)}}" class="waves-effect waves-light btn" style="font-size:15px;"><i class="fa fa-tag" aria-hidden="true"></i> {{ tag.name }}</a>

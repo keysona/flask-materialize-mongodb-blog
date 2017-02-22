@@ -35,7 +35,7 @@ def recent_feed():
 
 @blog.route('/sitemap.xml', methods=['GET'])
 def sitemap():
-    pages
+    # pages
 
 
 @blog.route('/', defaults={'page': 1})
@@ -61,6 +61,7 @@ def get_post_detail(slug):
 @blog.route('/categorys')
 def show_category():
     categorys = Category.objects.all()
+    return 'test'
 
 
 @blog.route('/category/<string:category>')
