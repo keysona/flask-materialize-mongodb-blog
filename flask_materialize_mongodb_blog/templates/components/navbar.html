@@ -11,10 +11,10 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <!-- <li><a class=""><i class="material-icons right">archive</i> Tech</a></li> -->
-          <li><a class="archive"><i class="fa fa-archive" aria-hidden="true"></i> Tech</a></li>
-          <li><a class="archive"><i class="fa fa-archive" aria-hidden="true"></i> Life</a></li>
-          <li><a href=""><i class="material-icons">rss_feed</i></a></li>
-          <li><a href=""><i class="material-icons">perm_identity</i></a></li>
+{#          <li><a class="archive"><i class="fa fa-archive" aria-hidden="true"></i> Tech</a></li>#}
+{#          <li><a class="archive"><i class="fa fa-archive" aria-hidden="true"></i> Life</a></li>#}
+{#          <li><a href=""><i class="material-icons">rss_feed</i></a></li>#}
+          <li><a href="{{ url_for('blog.get_post_detail', slut='review') }}">简历</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li><a class="archive"><i class="fa fa-archive" aria-hidden="true"></i> Tech</a></li>

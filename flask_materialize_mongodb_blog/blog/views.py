@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from urllib.parse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 from .models import *
@@ -82,4 +82,4 @@ def get_tag_detail(name):
 
 @blog.route('/about')
 def about():
-    return render_template('about.html')
+    return redirect(url_for('blog.get_post_detail', slug='review'))
