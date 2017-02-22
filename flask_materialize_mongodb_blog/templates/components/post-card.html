@@ -28,7 +28,7 @@
           {% endautoescape %}
       </article>
       <br>
-      {% if truncate %}
+      {% if index %}
         <div class="center">
           <a class="btn waves-effect waves-light" href="{{ url_for('blog.get_post_detail', slug=post.slug) }}">Read More
             <i class="material-icons right">send</i>
